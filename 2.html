@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex2
+    </title>
+</head>
+<style>
+    #container{
+        display: flex;
+        flex-direction: column;
+         /* width: auto;
+        height: auto; */
+        background-color: rgb(233, 249, 249);
+        margin-top: 25px;
+        font-size: 25px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        border: 1px solid rgb(208, 207, 207);
+        border-radius: 20px;
+        padding: 15px;
+        text-align: center;
+    }
+
+    #all{
+        text-align: center;
+        justify-content: center;
+    }
+</style>
+<body>
+    <div id="all">
+        <div id="upper">
+            <img src="https://em-content.zobj.net/thumbs/160/apple/118/face-with-monocle_1f9d0.png" alt="emoji" width="50" height="50"/>
+            <div style="font-family:'Courier New', Courier, monospace"> I know your Gender</div>
+            <input type="text" placeholder="Tell me your name" style="padding: 10px; border-radius: 5px;">
+            <button onclick=" getAnActivity()" style="padding: 10px; background-color: rgb(73, 180, 212); border-radius: 5px;"> Guess </button>
+        </div>
+        
+        
+        <div id="container">
+            <div id ='name' style="font-size: medium; font-weight: bold;"></div>
+            <div id="gender" style="font-size: 50px; color: orange;text-transform: capitalize;"></div>
+            <div id="probability"></div>
+        </div>
+    </div>        
+    <script>
+        const url = "https://api.genderize.io/?name=Makara"
+        const loadingTextEle = document.getElementById('loading-text')
+        const name = document.getElementById('name')
+        const gender = document.getElementById('gender')
+        const prob = document.getElementById('probability');
+
+        name.innerHTML="";
+        gender.innerHTML="";
+        prob.innerHTML="";
+        function getAnActivity(){
+            name.innerHTML="";
+            gender.innerHTML="";
+            prob.innerHTML="";
+            fetch(url)
+            .then(async (res) => {
+                const data = await res.json();
+                name.innerHTML = data["name"]
+                gender.innerHTML = data["gender"]
+                prob.innerHTML = data["probability"]*100 + `%`
+            }).catch((err) => {
+                console.log(err);
+            }).finally(() =>{
+                // loadingTextEle
+            })
+
+        }
+    </script>
+</body>
+</html>

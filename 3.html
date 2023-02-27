@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex3</title>
+</head>
+<style>
+    .Cards{
+        display: flex;
+        flex-direction: column;
+    }
+    .Card{
+        padding: auto;
+        border: 1px solid black;
+        border-radius: 5px;
+        margin: 10px;
+        }
+    .ID{
+        text-align: left;
+        padding: 0;
+    }
+    .probability{
+        padding: 0;
+        text-align: right;
+    }
+  
+    .input{
+        display:block; margin: 0 auto; width: 20rem; height: 2rem;
+    }
+</style>
+<body>
+    <img src="https://cdn-icons-png.flaticon.com/512/921/921490.png" style="  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 10%;">
+
+    <div style="font-family:'Courier New', Courier, monospace; text-align: center;">I Know your Home</div>
+
+    
+    <input type="text" placeholder="Tell Me Your First Name" style="border-radius: 5px; display:flex; margin: 0 auto; width: 20rem; height: 2rem;" id="input">
+    <input type="button" value="Guess" style="display:flex; margin: 0 auto; width: 20rem; height: 2rem;">
+
+    <div id = "Container">
+        <div id = "Cards"></div>
+    </div>
+   <script>
+         fetch('https://api.nationalize.io/?name=makara')
+        .then((res) =>  {
+            return res.json()
+        })
+        .then((data) => {
+            let data1 = "";
+            data.country.map((values) => {
+                data1+= `<div class="Card">
+                    <div class="ID"> ${values.country_id}</div>
+                    <div class="probability">${values.probability}</div>
+                     </div>`;
+            });
+            document.getElementById("Cards").innerHTML = data1;
+        })
+        .catch(error => console.log('error'))
+    </script>
+</body>
+</html>
